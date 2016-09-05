@@ -125,7 +125,7 @@ var TransactionList = React.createClass({
           if (!(txid in condensedTransactions)) {
             condensedTransactions[txid] = 0;
           }
-          condensedTransactions[txid] += parseFloat(tx["amount"]);
+          condensedTransactions[txid] += parseFloat(tx["value"]);
         });
         results.reverse().forEach(function(tx) {
           var txid = tx["txid"];
