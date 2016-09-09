@@ -2,9 +2,15 @@ var moreMenuStyle = {
   position: 'absolute',
   display: 'block',
   top: '26px',
-  left: '-13px',
 };
 var MyFilesRowMoreMenu = React.createClass({
+  _updateOrientation: function() {
+    var divRect = this.refs.div.getBoundingClientRect();
+
+    this.setState({
+      orientation: (divRect.left + this.refs.menu.offsetWidth) > window.innerWidth ? 'left' : 'right',
+    });
+  },
   onRevealClicked: function() {
     lbry.revealFile(this.props.path);
   },
@@ -20,11 +26,26 @@ var MyFilesRowMoreMenu = React.createClass({
       lbry.deleteFile(this.props.lbryUri);
     }
   },
+  getInitialState: function() {
+    return {
+      orientation: null,
+    };
+  },
+  componentDidMount: function() {
+    this._updateOrientation();
+    window.addEventListener('resize', this._updateOrientation, false);
+  },
+  componentWillUnmount: function() {
+    window.removeEventListener('resize', this._updateOrientation, false);
+  },
   render: function() {
+    var style = Object.assign({}, moreMenuStyle);
+    style[this.state.orientation] = '13px';
+
     return (
-      <div style={moreMenuStyle}>
+      <div ref="div" style={style}>
         <Menu {...this.props}>
-          <section className="card">
+          <section ref="menu" className="card">
             <MenuItem onClick={this.onRevealClicked} label="Reveal file" /> {/* @TODO: Switch to OS specific wording */}
             <MenuItem onClick={this.onRemoveClicked} label="Remove from LBRY" />
             <MenuItem onClick={this.onDeleteClicked} label="Remove and delete file" />
