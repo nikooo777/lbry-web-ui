@@ -263,6 +263,11 @@ lbry.formatName = function(name) {
   return name.toLowerCase().replace(/[^a-z0-9\-]/, '');
 }
 
+// Get a randomly chosen item from a collection
+lbry.choice = function(collection) {
+  return collection[Math.round(Math.random() * (collection.length - 1))];
+}
+
 lbry.loadJs = function(src, type, onload)
 {
   var lbryScriptTag = document.getElementById('lbry'),
