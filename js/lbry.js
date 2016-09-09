@@ -183,6 +183,10 @@ lbry.getVersionInfo = function(callback) {
   lbry.call('version', {}, callback);
 };
 
+lbry.getSearchServers = function(callback) {
+  lbry.call('get_search_servers', {}, callback);
+}
+
 lbry.checkNewVersionAvailable = function(callback) {
   lbry.call('version', {}, function(versionInfo) {
     var ver = versionInfo.lbrynet_version.split('.');
