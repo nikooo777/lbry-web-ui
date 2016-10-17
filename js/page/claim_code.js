@@ -1,7 +1,8 @@
 var claimCodeContentStyle = {
   display: 'inline-block',
   textAlign: 'left',
-  width: '600px',
+  overflow: 'hidden',
+  wordWrap: 'break-word',
 }, claimCodeLabelStyle = {
   display: 'inline-block',
   cursor: 'default',
@@ -82,16 +83,18 @@ var ClaimCodePage = React.createClass({
     return (
       <main>
         <div className="card">
-          <h2>Claim your beta invitation code</h2>
+          <h2>Claim your beta invitation code (Optional)</h2>
           <section style={claimCodeContentStyle}>
-            <p>Thanks for beta testing LBRY! Enter your invitation code and email address below to receive your initial
-               LBRY credits.</p>
-            <p>You will be added to our mailing list (if you're not already on it) and will be eligible for future rewards for beta testers.</p>
+            <p>Thanks for beta testing LBRY! If you signed for the beta and received your invitation code, please enter it with your email address below to receive your initial LBRY credits.</p>
+            <p>You don't necessarily need an invitation to test LBRY. Feel free to skip this step.</p>
+            <p>
+              You will be added to our mailing list (if you're not already on it) and will be eligible for future rewards for beta testers.
+            </p>
           </section>
           <section>
             <form onSubmit={this.handleSubmit}>
               <section><label style={claimCodeLabelStyle} htmlFor="code">Invitation code</label><input name="code" ref="code" /></section>
-              <section><label style={claimCodeLabelStyle} htmlFor="email">Email</label><input name="email" ref="email" /></section>
+              <section><label style={claimCodeLabelStyle} htmlFor="email">Email</label><input name="email" ref="email" type="email"/></section>
             </form>
           </section>
           <section>
